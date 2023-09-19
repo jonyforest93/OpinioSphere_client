@@ -11,10 +11,11 @@ import UserPage from "./components/userPage";
 const App = () => {
     return (
         <Routes>
+            <Route path='/user/:id' element={<UserPage/>}/>
             <Route path='/' element={ <PostsList/>} />
             <Route path='/review/:id' element={<CreateReviewPage/>}/>
+            <Route path='/review' element={<CreateReviewPage/>}/>
             <Route path='/review/:id/details' element={<PagePost/>}/>
-            <Route path='/user/:id' element={<UserPage/>}/>
         </Routes>
     )
 }

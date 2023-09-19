@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {useDeleteReviewByIdMutation, useGetUserReviewsQuery} from "../api/api";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import moment from "moment";
 import ErrorMessage from "./errorMessage";
 
 function UserPage(props) {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
 
     const {data: reviews, isLoading} = useGetUserReviewsQuery(id, {
@@ -24,8 +25,8 @@ function UserPage(props) {
         })
     }
 
-    const handleEditReview = (reviewId) => () => {
-        console.log(reviewId);
+    const handleEditReview = (reviewId) => {
+        navigate(`/review/${reviewId}`)
     }
 
     return (
@@ -82,7 +83,7 @@ function UserPage(props) {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <button
-                                            onClick={handleEditReview(review._id)}
+                                            onClick={() => handleEditReview(review._id)}
                                             className="bg-indigo-50 rounded-[8px] top-0 right-0 flex justify-start items-center gap-2 text-customPurple text-base px-[18px] py-[10px]">
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g id="edit-3">

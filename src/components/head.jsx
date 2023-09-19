@@ -111,7 +111,7 @@ const Head = () => {
                         <div className="flex justify-start items-center">
                             <button
                                 className="text-white bg-customPurple font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg"
-                                onClick={() => {navigate('/review/:id')}}
+                                onClick={() => {navigate('/review')}}
                             >Create post</button>
                             <Dropdown/>
                         </div>

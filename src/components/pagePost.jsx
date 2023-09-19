@@ -4,20 +4,21 @@ import RateBox from "./rateBox";
 import ErrorMessage from "./errorMessage";
 import CreateComment from "./createComment";
 import Comment from "../comment";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import moment from 'moment';
 import {useCreateCommentMutation, useGetPostByIdQuery, useReviewLikeMutation, useGetCommentsByReviewQuery, useSetMarkByReviewMutation} from "../api/api";
 import tokenService from "../services/token.service";
 
 const PagePost = (props) => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [reviewLike, {isFetching}] = useReviewLikeMutation();
     const {data: post, isLoading} = useGetPostByIdQuery(id, {
         skip: !id,
     });
     const [createComment] = useCreateCommentMutation();
     const [setMarkByReview] = useSetMarkByReviewMutation();
-    const {data: comments} = useGetCommentsByReviewQuery(id, {
+    const {data: comments, isLoading: isCommentsLoading} = useGetCommentsByReviewQuery(id, {
         skip: !id,
     })
 
@@ -83,12 +84,15 @@ const PagePost = (props) => {
 
     return (
         <>
-            {!isLoading
+            {!isLoading && !isCommentsLoading
             &&
                 <div className="container mx-auto mt-[60px] mb-10 relative">
                     <ErrorMessage message={error} onClose={() => setError(null)} />
                     { tokenService.getUserId() === post.author._id &&
-                    <button className="absolute bg-indigo-50 rounded-[8px] top-0 right-0 flex justify-start items-center gap-2 text-customPurple text-base px-[18px] py-[10px]">
+                    <button
+                        className="absolute bg-indigo-50 rounded-[8px] top-0 right-0 flex justify-start items-center gap-2 text-customPurple text-base px-[18px] py-[10px]"
+                        onClick={() => {navigate(`/review/${id}`)}}
+                    >
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="edit-3">
                                 <path
@@ -117,7 +121,7 @@ const PagePost = (props) => {
                             </div>
                             <div className="ml-2 flex flex-col justify-center items-start">
                                 <p className="text-lg font-inter text-gray-900">{post.author.name}</p>
-                                <p className="text-base font-inter text-gray-500">{moment(post.review.craetedDate).format('YYYY-MM-DD')}</p>
+                                <p className="text-base font-inter text-gray-500">{moment(post.review.createdDate).format('YYYY-MM-DD')}</p>
                             </div>
                         </div>
                         <div className="mt-7 rounded-[5rem] px-4 py-2 bg-gray-600 bg-opacity-10 flex flex-row justify-center items-center">
@@ -150,7 +154,7 @@ const PagePost = (props) => {
                             </div>
                             <div className="ml-2 flex flex-col justify-center items-start">
                                 <p className="text-sm font-inter text-gray-900">{post.author.name}</p>
-                                <p className="text-sm font-inter text-gray-500">{moment(post.review.craetedDate).format('YYYY-MM-DD')}</p>
+                                <p className="text-sm font-inter text-gray-500">{moment(post.review.createdDate).format('YYYY-MM-DD')}</p>
                             </div>
                         </div>
                         <button className="cursor-pointer" onClick={handleLike}>
@@ -180,6 +184,7 @@ const PagePost = (props) => {
                             sendComment={handleSendComment}
                         />
                     </div>
+
                     <div className="w-3/4 mx-auto">
                         { comments.map(comment => (
                             <Comment key={comment._id} {...comment}/>

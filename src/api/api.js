@@ -113,7 +113,17 @@ const api = createApi({
                     body: {},
                 }
             }
-        })
+        }),
+
+        editReviewById: builder.mutation({
+            query: ({ review, id }) => {
+                return {
+                    url: `review/id/${id}`,
+                    method: 'PATCH',
+                    body: review,
+                }
+            }
+        }),
     }),
 });
 
@@ -130,5 +140,6 @@ export const {
     useGetTagsMutation,
     useGetUserReviewsQuery,
     useDeleteReviewByIdMutation,
+    useEditReviewByIdMutation,
 } = api;
 export const apiSlice = api;
