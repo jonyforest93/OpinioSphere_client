@@ -54,7 +54,7 @@ function CreateReviewPage(props) {
             filename: selectedFileName,
         }
         if (editMode) {
-            review.filename = post.filename;
+            review.image = post.image;
             const body = {
                 review: review,
                 id: id,
