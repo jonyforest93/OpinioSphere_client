@@ -3,7 +3,7 @@ import TokenService from "../services/token.service";
 // Создайте объект API
 const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8080/api',
+        baseUrl: 'https://opnio-sphere-server.onrender.com/api',
         prepareHeaders: headers => {
             const token = TokenService.getToken();
             if (token) {
