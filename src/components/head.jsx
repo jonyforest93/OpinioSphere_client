@@ -10,13 +10,14 @@ import {useNavigate} from "react-router-dom";
 import Dropdown from "./dropdown";
 import LanguageSwitcher from "./languageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 const Head = () => {
+    const { isDarkTheme } = useTheme();
     const { t } = useTranslation();
-    const [isAuth, setIsAuth] = useState(false)
-    const [isReg, setIsReg] = useState(false)
-    const [search, setSearch] = useState('')
-
+    const [isAuth, setIsAuth] = useState(false);
+    const [isReg, setIsReg] = useState(false);
+    const [search, setSearch] = useState('');
     const navigate = useNavigate()
 
     const isAuthorized = () => {
@@ -35,8 +36,8 @@ const Head = () => {
 
     return (
         <>
-            <div className="z-50 fixed top-0 left-0 w-full flex justify-center items-center">
-                <div className="fixed top-0 w-full container mx-auto flex justify-between items-center py-2 bg-white">
+            <div className={`z-50 fixed top-0 left-0 w-full flex justify-center items-center ${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
+                <div className={`w-full container mx-auto flex justify-between items-center py-2 `}>
                     <div className="flex justify-start items-center">
                         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2.5">
                             <g filter="url(#filter0_dd_7_2319)">
@@ -100,10 +101,10 @@ const Head = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p className="cursor-pointer text-xl font-inter text-black mr-10" onClick={() => {navigate('/')}}>OpinioSphere</p>
+                        <p className="cursor-pointer text-xl font-inter mr-10" onClick={() => {navigate('/')}}>OpinioSphere</p>
                         <input type="text"
                                onChange={(e) => setSearch(e.target.value)}
-                               className="w-80 h-12 border rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none"
+                               className={`${isDarkTheme ? 'bg-backgroundDark text-textDark border border-borderDark' : 'bg-white text-gray-900 border border-borderLight'} w-50 h-12  rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none`}
                                placeholder="Search"
                         />
                     </div>
@@ -117,8 +118,10 @@ const Head = () => {
                                 <button
                                     className="text-white bg-customPurple font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg"
                                     onClick={() => {navigate('/review')}}
-                                >{t("Create review")}</button>
-                                <Dropdown/>
+                                >
+                                    {t("Create review")}
+                                </button>
+                                <Dropdown isDarkTheme={isDarkTheme}/>
                             </div>
                             :
                             <div>

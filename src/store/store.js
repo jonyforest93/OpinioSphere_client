@@ -7,10 +7,9 @@ const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware), // Добавьте middleware для RTK-Query
-    // Дополнительные параметры настройки могут быть добавлены здесь
+        getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
-setupListeners(store.dispatch); // Не забудьте вызвать setupListeners
+setupListeners(store.dispatch);
 
 export default store;

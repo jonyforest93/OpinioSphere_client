@@ -4,8 +4,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import moment from "moment";
 import ErrorMessage from "./errorMessage";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 function UserPage(props) {
+    const { isDarkTheme } = useTheme();
     const {t} = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
@@ -36,7 +38,6 @@ function UserPage(props) {
     }
 
     const handleSortedReviews = (e) => {
-        console.log(e.target.innerText);
         const array = [...userReviews];
         switch (e.target.innerText) {
             case 'AUTHOR':
@@ -63,16 +64,16 @@ function UserPage(props) {
     }
 
     return (
-        <>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
         {
             !isLoading &&
-            <div className="mt-[110px] min-h-screen container mx-auto">
+            <div className="pt-[110px] min-h-screen container mx-auto font-inter">
                 <ErrorMessage message={error} onClose={() => setError(null)} />
-                <h1 className="mb-16 text-5xl font-inter text-gray-900 font-semibold">{t("Reviews list")}</h1>
+                <h1 className="mb-16 text-5xl font-semibold">{t("Reviews list")}</h1>
                 {
                     reviews.length > 0
                         ?
-                        <table className="min-w-full divide-y divide-gray-200 text-base text-gray-900 font-inter">
+                        <table className="min-w-full divide-y divide-gray-200 text-base bg-transparent">
                             <thead onClick={handleSortedReviews} className="cursor-pointer">
                             <tr>
                                 <th scope="col" className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -96,7 +97,7 @@ function UserPage(props) {
                                 </th>
                             </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
+                            <tbody className="bg-transparent divide-y divide-gray-200">
                             {userReviews.map((review) => (
                                 <tr key={review._id}>
                                     <td className="px-6 py-4 whitespace-nowrap">
@@ -155,7 +156,7 @@ function UserPage(props) {
 
             </div>
         }
-        </>
+        </div>
     );
 }
 

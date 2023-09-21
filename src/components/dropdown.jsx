@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 
-const Dropdown = () => {
+const Dropdown = ({isDarkTheme}) => {
     const {t} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const { pathname } = useLocation();
@@ -21,12 +21,12 @@ const Dropdown = () => {
     };
 
     return (
-        <div className="relative inline-block text-left">
+        <div className={`${isDarkTheme ? 'bg-backgroundDark' : 'bg-white'} relative inline-block text-left`}>
             <div>
                 <button
                     type="button"
                     onClick={toggleDropdown}
-                    className="inline-flex justify-start items-center w-full rounded-md px-4 py-2 bg-white text-sm font-medium text-gray-900 focus:outline-none"
+                    className={`${isDarkTheme ? 'text-textDark' : 'text-gray-900'} inline-flex justify-start items-center w-full rounded-md px-4 py-2 text-sm font-medium focus:outline-none`}
                     id="options-menu"
                     aria-haspopup="true"
                     aria-expanded="true"
@@ -38,7 +38,7 @@ const Dropdown = () => {
                         </svg>
                     </span>
 
-                    <span className="text-sm text-gray-900 font-inter">
+                    <span className="text-sm font-inter">
                         {TokenService.getUserName()}
                     </span>
 
@@ -49,7 +49,7 @@ const Dropdown = () => {
             </div>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 rounded-md shadow-lg bg-white p-3 z-10">
+                <div className={`${isDarkTheme ? 'text-textDark bg-backgroundDark' : 'text-gray-900 bg-white'} absolute right-0 mt-2 rounded-md shadow-lg p-3 z-10`}>
                     <div className="w-full">
                         <div className="flex flex-row justify-start items-center pb-[18px] border-b border-gray-200">
                             <div className="mr-3">
@@ -60,7 +60,7 @@ const Dropdown = () => {
                             </div>
                             <div className="flex flex-col justify-center items-start">
                                 <p
-                                    className="text-sm font-inter text-gray-900 underline cursor-pointer" onClick={() => {
+                                    className="text-sm font-inter underline cursor-pointer" onClick={() => {
                                     navigate(`/user/${TokenService.getUserId()}`);
                                     setIsOpen(false);
                                     }}
@@ -72,7 +72,7 @@ const Dropdown = () => {
                         </div>
                         <button
                             onClick={handleLogout}
-                            className="w-full flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            className={`w-full flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:${isDarkTheme ? 'text-white' : 'text-gray-900'}`}
                         >
                             <svg className="mr-3"
                                 width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
-import parse from 'html-react-parser';
 import TagsBar from "./tagsBar";
 import RateBox from "./rateBox";
 import ErrorMessage from "./errorMessage";
 import CreateComment from "./createComment";
-import Comment from "../comment";
+import Comment from "./comment";
 import {useNavigate, useParams} from "react-router-dom";
 import moment from 'moment';
 import {useCreateCommentMutation, useGetPostByIdQuery, useReviewLikeMutation, useGetCommentsByReviewQuery, useSetMarkByReviewMutation} from "../api/api";
 import tokenService from "../services/token.service";
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 const PagePost = (props) => {
+    const { isDarkTheme } = useTheme();
     const { t } = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
@@ -34,7 +35,6 @@ const PagePost = (props) => {
 
     useEffect(() => {
         if (post && post.review) {
-            console.log(post.review.description)
             setLike(post.review.likes);
             setUserRate(post.review.userMark)
         }
@@ -88,14 +88,19 @@ const PagePost = (props) => {
     }
 
     return (
-        <>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
             {!isLoading && !isCommentsLoading
             &&
-                <div className="container mx-auto mt-[110px] mb-10 relative">
+                <div
+                    className={`${isDarkTheme ? 'text-textDark' :'text-gray-900'}
+                    container mx-auto pt-[110px] pb-10 relative`}
+                >
                     <ErrorMessage message={error} onClose={() => setError(null)} />
                     { tokenService.getUserId() === post.author._id &&
                     <button
-                        className="absolute bg-indigo-50 rounded-[8px] top-0 right-0 flex justify-start items-center gap-2 text-customPurple text-base px-[18px] py-[10px]"
+                        className={`${isDarkTheme ? 'bg-[#2E2A4C] text-[#B395F6]' : 'bg-indigo-50 text-customPurple'}
+                        absolute rounded-[8px] top-26 right-0 flex justify-start items-center gap-2 text-base px-[18px] py-[10px]`
+                    }
                         onClick={() => {navigate(`/review/${id}`)}}
                     >
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,9 +119,9 @@ const PagePost = (props) => {
                     </button>
                     }
                     <div className="flex flex-col justify-start items-center">
-                        <p className="text-xl font-inter text-customPurple">{post.review.category}</p>
-                        <h1 className="text-5xl font-inter text-gray-900 mt-3 font-semibold">{post.review.name}</h1>
-                        <h2 className="text-3xl font-inter text-gray-900 mt-3 font-semibold">{post.review.subject}</h2>
+                        <p className="text-xl text-customPurple">{post.review.category}</p>
+                        <h1 className="text-5xl mt-3 font-semibold">{post.review.name}</h1>
+                        <h2 className="text-3xl mt-3 font-semibold">{post.review.subject}</h2>
                         <div className="flex flex-row justify-center mt-8">
                             <div>
                                 <svg width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,19 +130,22 @@ const PagePost = (props) => {
                                 </svg>
                             </div>
                             <div className="ml-2 flex flex-col justify-center items-start">
-                                <p className="text-lg font-inter text-gray-900">{post.author.name}</p>
-                                <p className="text-base font-inter text-gray-500">{moment(post.review.createdDate).format('YYYY-MM-DD')}</p>
+                                <p className="text-lg">{post.author.name}</p>
+                                <p className="text-base text-gray-500">{moment(post.review.createdDate).format('YYYY-MM-DD')}</p>
                             </div>
                         </div>
-                        <div className="mt-7 rounded-[5rem] px-4 py-2 bg-gray-600 bg-opacity-10 flex flex-row justify-center items-center">
+                        <div
+                            className={`${isDarkTheme ? 'bg-[#BFC6D21A] bg-opacity-10 text-[#E4E7EC]' : 'bg-gray-700 bg-opacity-10 text-gray-700'}
+                            mt-7 rounded-[5rem] px-4 py-2 flex flex-row justify-center items-center`}
+                        >
                             <span>
                                 <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="star">
-                                    <path id="Icon (Stroke)" fillRule="evenodd" clipRule="evenodd" d="M8.4994 0.893311C8.84102 0.893311 9.15303 1.08725 9.30424 1.39358L10.9446 4.71669L14.6129 5.25287C14.9509 5.30227 15.2315 5.53923 15.3369 5.86415C15.4422 6.18907 15.354 6.54562 15.1093 6.78395L12.4557 9.3686L13.0819 13.0201C13.1397 13.3568 13.0012 13.6971 12.7248 13.8979C12.4484 14.0988 12.0819 14.1252 11.7795 13.9662L8.4994 12.2412L5.21926 13.9662C4.91686 14.1252 4.5504 14.0988 4.27398 13.8979C3.99755 13.6971 3.85911 13.3568 3.91687 13.0201L4.54313 9.3686L1.88949 6.78395C1.6448 6.54562 1.5566 6.18907 1.66195 5.86415C1.7673 5.53923 2.04795 5.30227 2.38593 5.25287L6.05424 4.71669L7.69456 1.39358C7.84577 1.08725 8.15778 0.893311 8.4994 0.893311Z" fill="#101828"/>
+                                    <path id="Icon (Stroke)" fillRule="evenodd" clipRule="evenodd" d="M8.4994 0.893311C8.84102 0.893311 9.15303 1.08725 9.30424 1.39358L10.9446 4.71669L14.6129 5.25287C14.9509 5.30227 15.2315 5.53923 15.3369 5.86415C15.4422 6.18907 15.354 6.54562 15.1093 6.78395L12.4557 9.3686L13.0819 13.0201C13.1397 13.3568 13.0012 13.6971 12.7248 13.8979C12.4484 14.0988 12.0819 14.1252 11.7795 13.9662L8.4994 12.2412L5.21926 13.9662C4.91686 14.1252 4.5504 14.0988 4.27398 13.8979C3.99755 13.6971 3.85911 13.3568 3.91687 13.0201L4.54313 9.3686L1.88949 6.78395C1.6448 6.54562 1.5566 6.18907 1.66195 5.86415C1.7673 5.53923 2.04795 5.30227 2.38593 5.25287L6.05424 4.71669L7.69456 1.39358C7.84577 1.08725 8.15778 0.893311 8.4994 0.893311Z" fill={isDarkTheme ? "#E4E7EC" : "#101828"}/>
                                     </g>
                                 </svg>
                             </span>
-                            <span className="text-base font-inter text-gray-600 ml-1">{post.review.mark}</span>
+                            <span className="text-base ml-1">{post.review.mark}</span>
                         </div>
                     </div>
                     <div className="mt-10">
@@ -146,8 +154,12 @@ const PagePost = (props) => {
                     <div className="w-full h-100 mt-5">
                         <img src={post.review.image} alt={post.review.subject} className="object-cover w-full h-full"/>
                     </div>
-                    <div className="w-3/4 mx-auto mt-[150px] mb-6 border-b border-solid border-gray-300">
-                        <div className="text-lg text-gray-500 font-inter pb-12"><ReactMarkdown>{post.review.description}</ReactMarkdown></div>
+                    <div className={`${isDarkTheme ? 'border-borderDark' : 'border-gray-300'} w-3/4 mx-auto mt-[150px] mb-6 border-b border-solid`}>
+                        <div className={`${isDarkTheme ? 'text-textDark' : 'text-gray-500'} text-lg pb-12`}>
+                            <ReactMarkdown>
+                                {post.review.description}
+                            </ReactMarkdown>
+                        </div>
                     </div>
                     <div className="w-full mt-8 flex justify-between items-center w-3/4 mx-auto">
                         <div className="flex flex-row justify-center">
@@ -158,12 +170,16 @@ const PagePost = (props) => {
                                 </svg>
                             </div>
                             <div className="ml-2 flex flex-col justify-center items-start">
-                                <p className="text-sm font-inter text-gray-900">{post.author.name}</p>
+                                <p className="text-sm">{post.author.name}</p>
                                 <p className="text-sm font-inter text-gray-500">{moment(post.review.createdDate).format('YYYY-MM-DD')}</p>
                             </div>
                         </div>
                         <button className="cursor-pointer" onClick={handleLike}>
-                            <span className={`text-base ${post.review.isLiked ?  'text-customPurple' : 'text-gray-600'} font-inter px-4 py-2 rounded-xl bg-purple-100 flex justify-start items-center`}>
+                            <span
+                                className={`text-base ${isDarkTheme ? 'bg-[#BFC6D21A]' : 'bg-purple-100'}
+                                ${post.review.isLiked ?  'text-customPurple' : 'text-gray-600'}
+                                font-inter px-4 py-2 rounded-xl flex justify-start items-center`}
+                            >
                                  <span className="mr-1">
                                     <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" clipRule="evenodd" d="M9.64115 0.662173C10.167 0.444275 10.7307 0.332123 11.2999 0.332123C11.8692 0.332123 12.4328 0.444275 12.9587 0.662173C13.4845 0.88003 13.9622 1.19933 14.3645 1.60182C14.767 2.00419 15.0866 2.48213 15.3044 3.00791C15.5223 3.53378 15.6345 4.09744 15.6345 4.66667C15.6345 5.23591 15.5223 5.79956 15.3044 6.32544C15.0865 6.85126 14.7672 7.32902 14.3647 7.73141L8.47132 13.6247C8.21097 13.8851 7.78886 13.8851 7.52851 13.6247L1.63518 7.73141C0.82236 6.91859 0.365723 5.81617 0.365723 4.66667C0.365723 3.51717 0.82236 2.41475 1.63518 1.60194C2.448 0.789116 3.55042 0.332479 4.69992 0.332479C5.84942 0.332479 6.95184 0.789116 7.76465 1.60194L7.99992 1.8372L8.23507 1.60205C8.63746 1.1995 9.11532 0.88005 9.64115 0.662173Z" fill={post.review.isLiked ?  "#6941C6" : "#667085"}/>
@@ -188,14 +204,14 @@ const PagePost = (props) => {
                         />
                     </div>
 
-                    <div className="w-3/4 mx-auto">
+                    <div className="w-3/4 mx-auto pb-10">
                         { comments.map(comment => (
                             <Comment key={comment._id} {...comment}/>
                         ))}
                     </div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

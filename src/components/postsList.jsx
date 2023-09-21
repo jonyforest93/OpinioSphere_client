@@ -4,8 +4,10 @@ import FilterToolbar from "./filterToolbar";
 import { useGetAllPostsMutation } from "../api/api";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 const PostList = () => {
+    const { isDarkTheme } = useTheme();
     const { t } = useTranslation();
     const [posts, setPosts] = useState([]);
     const [category, setCategory] = useState("All");
@@ -36,7 +38,6 @@ const PostList = () => {
     }, [category, orderBy]);
 
     useEffect(() => {
-        console.log(page)
         const sortParams = {
             category: category,
             sort: orderBy,
@@ -55,13 +56,12 @@ const PostList = () => {
 
     const handlePagePlus = () => {
         setPage(page + 1);
-        console.log(page)
     };
 
     return (
-        <>
-            <div className="container mx-auto mt-[110px]">
-                <h1 className="text-5xl font-inter text-gray-900 ml-8">{t("reviews")}: {t(category)}</h1>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
+            <div className={`container mx-auto pt-[110px]`}>
+                <h1 className="text-5xl font-inter ml-8">{t("reviews")}: {t(category)}</h1>
                 <FilterToolbar onCategoryClick={setCategory} onSortSelect={setOrderBy}/>
                 <InfiniteScroll
                     dataLength={posts.length}
@@ -76,7 +76,7 @@ const PostList = () => {
                     </div>
                 </InfiniteScroll>
             </div>
-        </>
+        </div>
     );
 };
 

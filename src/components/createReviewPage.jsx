@@ -4,8 +4,10 @@ import ImageUploader from "./dragAndDrop";
 import {useNavigate, useParams} from "react-router-dom";
 import MarkdownEditor from "./markdownEditor";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 function CreateReviewPage(props) {
+    const { isDarkTheme } = useTheme();
     const {t} = useTranslation();
     const options = ['Game', 'Film', 'Book'];
     const [category, setCategory] = useState('Game');
@@ -118,7 +120,7 @@ function CreateReviewPage(props) {
     }
 
     return (
-        <>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
             {
                 !isPostLoading
                 &&
@@ -126,31 +128,33 @@ function CreateReviewPage(props) {
                     {
                         editMode
                         ?
-                        <h1 className="font-inter text-5xl font-bold text-gray-900 mt-[110px] mb-3 text-center">
+                        <h1 className="font-inter text-5xl font-bold pt-[110px] mb-3 text-center">
                             {t("Edit review")}
                         </h1>
                         :
                         <div>
-                            <h1 className="font-inter text-5xl font-bold text-gray-900 mt-[110px] mb-3 text-center">
+                            <h1 className="font-inter text-5xl font-bold pt-[110px] mb-3 text-center">
                                 {t("Create a review")}
                             </h1>
-                            <p className="font-inter text-xl text-gray-500 mb-8 text-center">
+                            <p
+                                className={`${isDarkTheme ? 'text-[#BFC6D2]' : 'text-gray-500'} font-inter text-xl mb-8 text-center`}
+                            >
                                 {t("Create your review with detailed information")}.
                             </p>
                         </div>
                     }
 
-                    <div className="w-3/4 mx-auto">
-                        <form action="/" onSubmit={handleForm} className="flex-col ">
+                    <div className={`${isDarkTheme ? 'text-[#BFC6D2]' : 'text-gray-700'}`}>
+                        <form action="/" onSubmit={handleForm} className="flex-col">
                             <div>
-                                <label className="text-gray-700 text-sm font-inter" htmlFor="category">
+                                <label className="text-sm font-inter" htmlFor="category">
                                     {t("Category")}*
                                 </label>
                                 <select
                                     value={category}
                                     id="category"
                                     onChange={handleSelectChange}
-                                    className="w-full h-11 text-base text-gray-900 border rounded-lg mt-2 px-4 py-2 focus:outline-none focus:ring focus:border-customPurple"
+                                    className={`${isDarkTheme && 'text-textDark bg-backgroundDark'} t w-full h-11 text-base border rounded-lg mt-2 px-4 py-2 focus:outline-none focus:border-customPurple`}
                                 >
                                     <option disabled>{t("Select a category")}</option>
                                     {options.map((elem) => (
@@ -161,11 +165,11 @@ function CreateReviewPage(props) {
                                 </select>
                             </div>
                             <div className="mt-5">
-                                <label className="text-gray-700 text-sm font-inter" htmlFor="title">
+                                <label className="text-sm font-inter" htmlFor="title">
                                     {t("Title")}*
                                 </label>
                                 <input
-                                    className="border rounded-lg w-full mt-2 py-2.5 px-3.5 text-gray-700 focus:outline-none focus:ring focus:border-customPurple"
+                                    className="bg-transparent border rounded-lg w-full mt-2 py-2.5 px-3.5 focus:outline-none focus:ring focus:border-customPurple"
                                     id="title"
                                     type="text"
                                     value={name}
@@ -175,11 +179,11 @@ function CreateReviewPage(props) {
                                 />
                             </div>
                             <div className="mt-5">
-                                <label className="text-gray-700 text-sm font-inter" htmlFor="subject">
+                                <label className="text-sm font-inter" htmlFor="subject">
                                     {t("Subject")}*
                                 </label>
                                 <input
-                                    className="border rounded-lg w-full mt-2 py-2.5 px-3.5 text-gray-700 focus:outline-none focus:ring focus:border-customPurple"
+                                    className="bg-transparent border rounded-lg w-full mt-2 py-2.5 px-3.5 focus:outline-none focus:ring focus:border-customPurple"
                                     id="subject"
                                     type="text"
                                     value={subject}
@@ -197,19 +201,19 @@ function CreateReviewPage(props) {
                             }
 
                             <div className="mt-5">
-                                <label className="text-gray-700 text-sm font-inter" htmlFor="tag">
+                                <label className="text-sm font-inter" htmlFor="tag">
                                     {t("Enter Tags (max 20)")}
                                 </label>
                                 <div className="flex items-center justify-between gap-4 relative">
                                     <input
-                                        className="flex-grow border rounded-lg w-full mt-2 py-2.5 px-3.5 text-gray-700 focus:outline-none focus:ring focus:border-customPurple"
+                                        className="bg-transparent flex-grow border rounded-lg w-full mt-2 py-2.5 px-3.5 focus:outline-none focus:ring focus:border-customPurple"
                                         id="tag"
                                         type="text"
                                         value={tag}
                                         onChange={handleTagInput}
                                         placeholder="Enter tag"
                                     />
-                                    <div className="absolute top-[4.5rem] left-0 flex justify-between z-30">
+                                    <div className="absolute top-[15px] right-[120px] flex justify-between z-30">
                                         {autoCompletedTags.map(el => (
                                             <span onClick={handleAddTagForAutocomplete}
                                                   className="flex justify-start items-center text-customPurple text-sm font-inter mr-3 py-1.5 pl-3.5 pr-2.5 bg-gray-300 rounded-lg"
@@ -259,7 +263,7 @@ function CreateReviewPage(props) {
 
                             </div>
                             <div className="mt-5">
-                                <label className="text-gray-700 text-sm font-inter" htmlFor="description">
+                                <label className="text-sm font-inter" htmlFor="description">
                                     {t("Review text")}*
                                 </label>
                                 {
@@ -274,7 +278,7 @@ function CreateReviewPage(props) {
                                     {t("Set Mark")}*
                                 </label>
                                 <input
-                                    className="w-full appearance-none h-2 bg-gray-300 rounded-full"
+                                    className={`${isDarkTheme ? 'bg-gray-500' : 'bg-gray-500'} w-full appearance-none h-2 bg-gray-300 rounded-full`}
                                     type="range"
                                     id="numberSlider"
                                     min="1"
@@ -285,10 +289,10 @@ function CreateReviewPage(props) {
                                 />
                                 <p className="text-gray-700 text-base font-inter">{t("Your mark")}: {mark}</p>
                             </div>
-                            <div className="flex justify-center mb-[96px]">
+                            <div className="flex justify-center pb-[96px]">
                                 <button
                                     type="submit"
-                                    className="mt-14 text-white bg-customPurple font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg"
+                                    className={`${isDarkTheme ? 'bg-[#9E77F4]' : 'bg-customPurple'} mt-14 text-white font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg`}
                                 >
                                     {t("Save Review")}
                                 </button>
@@ -297,7 +301,7 @@ function CreateReviewPage(props) {
                     </div>
                 </div>
             }
-        </>
+        </div>
 
     );
 }

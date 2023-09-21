@@ -1,8 +1,10 @@
 import React ,{useState} from "react";
 import CategoryButton from "./cateroryButton";
 import FilterSelect from "./filterSelect";
+import { useTheme } from "../ThemeContext";
 
 const FilterToolbar = ({onCategoryClick, onSortSelect}) => {
+    const { isDarkTheme } = useTheme();
     const category = ['All', 'Game', 'Film', 'Book'];
     const [activeCategory, setActiveCategory] = useState('All');
 
@@ -26,7 +28,7 @@ const FilterToolbar = ({onCategoryClick, onSortSelect}) => {
     }
 
     return (
-        <div className="mx-8 mt-8 flex justify-between items-center">
+        <div className={`${isDarkTheme ? 'bg-backgroundDark' : 'bg-white'}mx-8 mt-8 flex justify-between items-center`}>
             <div>
                 {category.map(elem => <CategoryButton
                 text={elem}

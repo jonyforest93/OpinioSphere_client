@@ -1,13 +1,8 @@
 import React from "react";
-import {useState} from "react";
+import { useTheme } from "../ThemeContext";
 
 const ThemeSwitcher = () => {
-
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-    const toggleTheme = () => {
-        setIsDarkTheme((prevTheme) => !prevTheme);
-    };
+    const { isDarkTheme, toggleTheme } = useTheme();
 
     return (
         <div className="flex items-center mx-4">
