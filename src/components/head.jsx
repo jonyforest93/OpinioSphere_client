@@ -9,8 +9,10 @@ import TokenService from "../services/token.service";
 import {useNavigate} from "react-router-dom";
 import Dropdown from "./dropdown";
 import LanguageSwitcher from "./languageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Head = () => {
+    const { t } = useTranslation();
     const [isAuth, setIsAuth] = useState(false)
     const [isReg, setIsReg] = useState(false)
     const [search, setSearch] = useState('')
@@ -115,7 +117,7 @@ const Head = () => {
                                 <button
                                     className="text-white bg-customPurple font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg"
                                     onClick={() => {navigate('/review')}}
-                                >Create post</button>
+                                >{t("Create review")}</button>
                                 <Dropdown/>
                             </div>
                             :

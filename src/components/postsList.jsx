@@ -17,20 +17,26 @@ const PostList = () => {
     const [getAllPosts] = useGetAllPostsMutation();
 
     useEffect(() => {
-        const sortParams = {
-            category: category,
-            sort: orderBy,
-            limit: limit,
-            page: 0,
+        setHasMore(true)
+        if (page !== 0) {
+            setPosts([]);
+            setPage(0);
+        } else {
+            const sortParams = {
+                category: category,
+                sort: orderBy,
+                limit: limit,
+                page: 0,
+            }
+            getAllPosts(sortParams)
+                .then((data) => {
+                    setPosts(data.data);
+                });
         }
-        getAllPosts(sortParams)
-            .then((data) => {
-                setPosts(data.data);
-                setPage(0);
-            });
     }, [category, orderBy]);
 
     useEffect(() => {
+        console.log(page)
         const sortParams = {
             category: category,
             sort: orderBy,
@@ -49,6 +55,7 @@ const PostList = () => {
 
     const handlePagePlus = () => {
         setPage(page + 1);
+        console.log(page)
     };
 
     return (
