@@ -1,7 +1,9 @@
 import React, {useState} from "react";
+import { useTranslation } from "react-i18next";
 
 const RateBox = ({getRate, sendRate, rate}) => {
-    const [rating, setRating] = useState(null)
+    const [rating, setRating] = useState(null);
+    const {t} = useTranslation();
 
     const handleRate = () => {
         if (rating) {
@@ -11,8 +13,8 @@ const RateBox = ({getRate, sendRate, rate}) => {
 
     return (
         <div className="flex flex-col justify-start items-center px-16 py-14 bg-indigo-700 rounded-2xl">
-            <h2 className="text-4xl font-inter text-white font-semibold">How do you like the review?</h2>
-            <p className="text-lg font-inter text-white w-3/4 text-center mt-3">Rate the review that the author did for you. Reviews with high ratings are more likely to be included in recommendations.</p>
+            <h2 className="text-4xl font-inter text-white font-semibold">{t("How do you like the review?")}</h2>
+            <p className="text-lg font-inter text-white w-3/4 text-center mt-3">{t("Rate the review that the author did for you. Reviews with high ratings are more likely to be included in recommendations.")}</p>
             <p className="text-lg font-inter text-white w-3/4 text-center mt-3">{rate}</p>
             <div className="rating flex flex-row gap-4 my-8">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -51,7 +53,7 @@ const RateBox = ({getRate, sendRate, rate}) => {
                 onClick={handleRate}
                 disabled={!rating}
             >
-                Rate review
+                {t("Rate review")}
             </button>
         </div>
     )

@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {useCreateReviewMutation, useEditReviewByIdMutation, useGetPostByIdQuery, useGetTagsMutation} from "../api/api";
 import ImageUploader from "./dragAndDrop";
 import {useNavigate, useParams} from "react-router-dom";
+import MarkdownEditor from "./markdownEditor";
+import { useTranslation } from "react-i18next";
 
 function CreateReviewPage(props) {
+    const {t} = useTranslation();
     const options = ['Game', 'Film', 'Book'];
     const [category, setCategory] = useState('Game');
     const [name, setName] = useState('')
@@ -38,8 +41,6 @@ function CreateReviewPage(props) {
             setTags(post.review.tags);
         }
     }, [post]);
-
-
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -94,6 +95,10 @@ function CreateReviewPage(props) {
         setSelectedFileName(name)
     }
 
+    const handleMarkdownText = (text) => {
+        setDescription(text);
+    }
+
     const handleTagInput = (e) => {
         setTag(e.target.value);
 
@@ -118,17 +123,28 @@ function CreateReviewPage(props) {
                 !isPostLoading
                 &&
                 <div className="container mx-auto">
-                    <h1 className="font-inter text-5xl font-bold text-gray-900 mt-[60px] mb-3 text-center">
-                        Create a review
-                    </h1>
-                    <p className="font-inter text-xl text-gray-500 mb-8 text-center">
-                        Create your review with detailed information.
-                    </p>
+                    {
+                        editMode
+                        ?
+                        <h1 className="font-inter text-5xl font-bold text-gray-900 mt-[110px] mb-3 text-center">
+                            {t("Edit review")}
+                        </h1>
+                        :
+                        <div>
+                            <h1 className="font-inter text-5xl font-bold text-gray-900 mt-[110px] mb-3 text-center">
+                                {t("Create a review")}
+                            </h1>
+                            <p className="font-inter text-xl text-gray-500 mb-8 text-center">
+                                {t("Create your review with detailed information")}.
+                            </p>
+                        </div>
+                    }
+
                     <div className="w-3/4 mx-auto">
                         <form action="/" onSubmit={handleForm} className="flex-col ">
                             <div>
                                 <label className="text-gray-700 text-sm font-inter" htmlFor="category">
-                                    Category*
+                                    {t("Category")}*
                                 </label>
                                 <select
                                     value={category}
@@ -136,17 +152,17 @@ function CreateReviewPage(props) {
                                     onChange={handleSelectChange}
                                     className="w-full h-11 text-base text-gray-900 border rounded-lg mt-2 px-4 py-2 focus:outline-none focus:ring focus:border-customPurple"
                                 >
-                                    <option disabled>Select a category</option>
+                                    <option disabled>{t("Select a category")}</option>
                                     {options.map((elem) => (
                                         <option key={elem} value={elem}>
-                                            {elem}
+                                            {t(elem)}
                                         </option>
                                     ))}
                                 </select>
                             </div>
                             <div className="mt-5">
                                 <label className="text-gray-700 text-sm font-inter" htmlFor="title">
-                                    Title*
+                                    {t("Title")}*
                                 </label>
                                 <input
                                     className="border rounded-lg w-full mt-2 py-2.5 px-3.5 text-gray-700 focus:outline-none focus:ring focus:border-customPurple"
@@ -160,7 +176,7 @@ function CreateReviewPage(props) {
                             </div>
                             <div className="mt-5">
                                 <label className="text-gray-700 text-sm font-inter" htmlFor="subject">
-                                    Subject*
+                                    {t("Subject")}*
                                 </label>
                                 <input
                                     className="border rounded-lg w-full mt-2 py-2.5 px-3.5 text-gray-700 focus:outline-none focus:ring focus:border-customPurple"
@@ -182,7 +198,7 @@ function CreateReviewPage(props) {
 
                             <div className="mt-5">
                                 <label className="text-gray-700 text-sm font-inter" htmlFor="tag">
-                                    Enter Tags (max 20)
+                                    {t("Enter Tags (max 20)")}
                                 </label>
                                 <div className="flex items-center justify-between gap-4 relative">
                                     <input
@@ -220,7 +236,7 @@ function CreateReviewPage(props) {
                                                 <path id="Icon" d="M17.0711 10H2.92893M10 2.92896V17.0711" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                                             </g>
                                         </svg>
-                                        Add
+                                        {t("Add")}
                                     </button>
                                 </div>
 
@@ -244,21 +260,18 @@ function CreateReviewPage(props) {
                             </div>
                             <div className="mt-5">
                                 <label className="text-gray-700 text-sm font-inter" htmlFor="description">
-                                    Review text*
+                                    {t("Review text")}*
                                 </label>
-                                <textarea
-                                    className="border rounded w-full mt-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-customPurple"
-                                    id="description"
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="Enter review text"
-                                    rows="4"
-                                    required
-                                />
+                                {
+                                    editMode
+                                        ? <MarkdownEditor id="description" onChange={handleMarkdownText} text={post.review.description}/>
+                                        : <MarkdownEditor id="description" onChange={handleMarkdownText}/>
+                                }
+
                             </div>
                             <div className="flex flex-col items-start mt-5">
                                 <label className="mb-2 text-gray-700 text-sm font-inter" htmlFor="numberSlider">
-                                    Set Mark*
+                                    {t("Set Mark")}*
                                 </label>
                                 <input
                                     className="w-full appearance-none h-2 bg-gray-300 rounded-full"
@@ -270,14 +283,14 @@ function CreateReviewPage(props) {
                                     value={mark}
                                     onChange={(e) => setMark(e.target.value)}
                                 />
-                                <p className="text-gray-700 text-base font-inter">Your mark: {mark}</p>
+                                <p className="text-gray-700 text-base font-inter">{t("Your mark")}: {mark}</p>
                             </div>
                             <div className="flex justify-center mb-[96px]">
                                 <button
                                     type="submit"
                                     className="mt-14 text-white bg-customPurple font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg"
                                 >
-                                    Save Review
+                                    {t("Save Review")}
                                 </button>
                             </div>
                         </form>

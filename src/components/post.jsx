@@ -1,6 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import moment from 'moment';
+import ReactMarkdown from "react-markdown";
 
 const Post = (props) => {
     const formatDate = moment(props.createdAt).format('YYYY-MM-DD');
@@ -30,7 +31,7 @@ const Post = (props) => {
                 <h3 className="text-2xl text-gray-900 font-inter">{props.name}</h3>
             </div>
             <div className="mt-3 h-12 overflow-hidden">
-                <p className="text-base text-gray-500 font-inter">{props.description}</p>
+                <div className="text-lg text-gray-500 font-inter pb-12"><ReactMarkdown>{props.description}</ReactMarkdown></div>
             </div>
             <div className="w-full mt-8 flex justify-between items-center">
                 <div>

@@ -1,18 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-const CateroryButton = ({ text, onClick, isActive }) => {
+const CategoryButton = ({ text, onClick, isActive }) => {
+    const {t} = useTranslation();
     const handleButtonClick = () => {
         onClick(text);
     };
 
     return (
         <button className={`font-inter text-base w-21 h-11 px-[18px] py-2.5 rounded-lg 
-        ${isActive ? 'bg-gray-100' : 'bg-white'} ${isActive ? 'text-customPurple' : 'text-gray-500'}`}
+        ${isActive ? 'bg-gray-100 text-customPurple' : 'bg-white text-gray-500'}`}
             onClick={handleButtonClick}
         >
-            {text}
+            {t(text)}
         </button>
     );
 }
 
-export default CateroryButton;
+export default CategoryButton;

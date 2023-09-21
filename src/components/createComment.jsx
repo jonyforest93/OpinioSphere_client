@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import tokenService from "../services/token.service";
+import { useTranslation } from "react-i18next";
 
 const CreateComment = ({getText, sendComment}) => {
+    const {t} = useTranslation();
     const [commentText, setCommentText] = useState('');
     const isToken = tokenService.getToken()
 
     return (
         <div className="w-3/4 mx-auto">
-            <h2 className="text-4xl font-inter text-gray-900 text-center font-semibold">Comments on the review</h2>
-            <p className="text-xl font-inter text-gray-500 text-center mt-4">You can read the comments to the review, and also leave your comment</p>
+            <h2 className="text-4xl font-inter text-gray-900 text-center font-semibold">{t("Comments on the review")}</h2>
+            <p className="text-xl font-inter text-gray-500 text-center mt-4">{t("You can read the comments to the review, and also leave your comment")}</p>
             <form className="flex flex-row gap-4 mt-12" onSubmit={() => {
                 sendComment();
                 setCommentText('');
@@ -25,7 +27,7 @@ const CreateComment = ({getText, sendComment}) => {
                     disabled={!commentText || !isToken}
                     className="text-white bg-customPurple font-inter text-base px-5 py-3 rounded-[8px] disabled:opacity-50"
                 >
-                    Send a comment
+                    {t("Send a comment")}
                 </button>
             </form>
         </div>

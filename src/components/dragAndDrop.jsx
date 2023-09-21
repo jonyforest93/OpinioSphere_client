@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 const ImageUploader = ({handleImageDrop}) => {
+    const {t} = useTranslation()
     const [selectedFile, setSelectedFile] = useState(null);
 
     const convertFileToBase64 = (file) => {
@@ -63,8 +65,8 @@ const ImageUploader = ({handleImageDrop}) => {
                             </g>
                         </svg>
                     </div>
-                    <p className="mt-8 text-base font-inter text-[#344054]">Drag and drop an image, or Browse</p>
-                    <p className="mt-2 text-sm font-inter text-gray-500">Minimum 960px width recommended. Max 10MB</p>
+                    <p className="mt-8 text-base font-inter text-[#344054]">{t("Drag and drop an image, or Browse")}</p>
+                    <p className="mt-2 text-sm font-inter text-gray-500">{t("Minimum 960px width recommended. Max 10MB")}</p>
                 </div>
             )}
             <input

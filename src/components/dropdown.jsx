@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import TokenService from "../services/token.service";
 import {useLocation, useNavigate} from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 
 const Dropdown = () => {
+    const {t} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -76,7 +78,7 @@ const Dropdown = () => {
                                 width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.6665 2H3.99984C3.64622 2 3.30708 2.14048 3.05703 2.39052C2.80698 2.64057 2.6665 2.97971 2.6665 3.33333V12.6667C2.6665 13.4 3.2665 14 3.99984 14H6.6665M10.6665 11.3333L13.9998 8L10.6665 4.66667M13.1998 8H5.99984" stroke="#667085" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
-                            Log Out
+                            {t("Log Out")}
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React ,{useState} from "react";
-import CateroryButton from "./cateroryButton";
+import CategoryButton from "./cateroryButton";
 import FilterSelect from "./filterSelect";
 
 const FilterToolbar = ({onCategoryClick, onSortSelect}) => {
@@ -28,7 +28,7 @@ const FilterToolbar = ({onCategoryClick, onSortSelect}) => {
     return (
         <div className="mx-8 mt-8 flex justify-between items-center">
             <div>
-                {category.map(elem => <CateroryButton
+                {category.map(elem => <CategoryButton
                 text={elem}
                 key={elem}
                 isActive={elem === activeCategory}
