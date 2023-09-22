@@ -59,7 +59,7 @@ const PostList = () => {
     };
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} font-inter`}>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} font-inter min-h-screen`}>
             <div className={`container mx-auto pt-[110px]`}>
                 <h1 className="text-3xl md:text-5xl font-semibold ml-8">{t("reviews")}: {t(category)}</h1>
                 <FilterToolbar onCategoryClick={setCategory} onSortSelect={setOrderBy}/>
