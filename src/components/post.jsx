@@ -47,10 +47,12 @@ const Post = (props) => {
             </div>
             <div className="mt-3 h-12 overflow-hidden">
                 <div className="text-lg text-gray-500 font-inter pb-12">
-                    <ReactMarkdown>{props.description}</ReactMarkdown>
+                    <ReactMarkdown>
+                        {props.description}
+                    </ReactMarkdown>
                 </div>
             </div>
-            <div className="w-full mt-8 flex justify-between items-center">
+            <div className="w-full mt-6 flex justify-between items-center md:mt-8">
                 <div>
                     <p className="text-sm font-inter">{props.authorName}</p>
                     <p className="text-sm font-inter text-gray-500">{formatDate}</p>
