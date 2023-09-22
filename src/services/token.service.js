@@ -13,6 +13,10 @@ class TokenService {
         localStorage.setItem('userEmail', userEmail);
     }
 
+    setUserTheme(theme) {
+        localStorage.setItem('theme', theme);
+    }
+
     getUserName() {
         return localStorage.getItem('useName');
     }

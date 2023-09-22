@@ -21,7 +21,7 @@ const FilterSelect = ({onSelect}) => {
             <select
                 value={selectedValue}
                 onChange={handleSelectChange}
-                className={`${isDarkTheme ? 'text-textDark bg-backgroundDark border-borderDark' : 'text-gray-900 bg-white'}
+                className={`w-full md:${isDarkTheme ? 'text-textDark bg-backgroundDark border-borderDark' : 'text-gray-900 bg-white'}
                 w-80 h-11 text-base border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-customPurple`}>
                 {options.map((elem) => (
                     <option key={elem} value={elem}>

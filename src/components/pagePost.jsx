@@ -88,7 +88,7 @@ const PagePost = (props) => {
     }
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900 px-4 md:px-0'}`}>
             {!isLoading && !isCommentsLoading
             &&
                 <div
@@ -120,8 +120,8 @@ const PagePost = (props) => {
                     }
                     <div className="flex flex-col justify-start items-center">
                         <p className="text-xl text-customPurple">{post.review.category}</p>
-                        <h1 className="text-5xl mt-3 font-semibold">{post.review.name}</h1>
-                        <h2 className="text-3xl mt-3 font-semibold">{post.review.subject}</h2>
+                        <h1 className="text-3xl md:text-5xl mt-3 font-semibold">{post.review.name}</h1>
+                        <h2 className="text-xl md:text-3xl mt-3 font-semibold">{post.review.subject}</h2>
                         <div className="flex flex-row justify-center mt-8">
                             <div>
                                 <svg width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">

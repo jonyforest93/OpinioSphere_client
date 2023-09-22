@@ -59,9 +59,9 @@ const PostList = () => {
     };
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} font-inter`}>
             <div className={`container mx-auto pt-[110px]`}>
-                <h1 className="text-5xl font-inter ml-8">{t("reviews")}: {t(category)}</h1>
+                <h1 className="text-3xl md:text-5xl font-semibold ml-8">{t("reviews")}: {t(category)}</h1>
                 <FilterToolbar onCategoryClick={setCategory} onSortSelect={setOrderBy}/>
                 <InfiniteScroll
                     dataLength={posts.length}
@@ -69,7 +69,7 @@ const PostList = () => {
                     hasMore={hasMore}
                     loader={<h4>{t("loading...")}</h4>}
                 >
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-12 my-10">
+                    <div className=" md:grid grid-cols-2 gap-x-8 gap-y-12 my-10">
                         {posts.map((post, index) => (
                             <Post {...post} key={index} />
                         ))}

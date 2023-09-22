@@ -28,8 +28,8 @@ const FilterToolbar = ({onCategoryClick, onSortSelect}) => {
     }
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark' : 'bg-white'}mx-8 mt-8 flex justify-between items-center`}>
-            <div>
+        <div className={`flex-col gap-6 md:${isDarkTheme ? 'bg-backgroundDark' : 'bg-white'} mx-8 mt-8 flex justify-between items-center`}>
+            <div className={`w-full`}>
                 {category.map(elem => <CategoryButton
                 text={elem}
                 key={elem}

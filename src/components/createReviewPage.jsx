@@ -120,7 +120,7 @@ function CreateReviewPage(props) {
     }
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'}`}>
+        <div className={`px-4 ${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} font-inter md:px-0`}>
             {
                 !isPostLoading
                 &&
@@ -128,16 +128,16 @@ function CreateReviewPage(props) {
                     {
                         editMode
                         ?
-                        <h1 className="font-inter text-5xl font-bold pt-[110px] mb-3 text-center">
+                        <h1 className="text-3xl md:text-5xl font-bold pt-[110px] mb-3 text-center">
                             {t("Edit review")}
                         </h1>
                         :
                         <div>
-                            <h1 className="font-inter text-5xl font-bold pt-[110px] mb-3 text-center">
+                            <h1 className="text-3xl md:text-5xl font-bold pt-[110px] mb-3 text-center">
                                 {t("Create a review")}
                             </h1>
                             <p
-                                className={`${isDarkTheme ? 'text-[#BFC6D2]' : 'text-gray-500'} font-inter text-xl mb-8 text-center`}
+                                className={`text-lg md:${isDarkTheme ? 'text-[#BFC6D2]' : 'text-gray-500'} text-xl mb-8 text-center`}
                             >
                                 {t("Create your review with detailed information")}.
                             </p>
@@ -145,9 +145,9 @@ function CreateReviewPage(props) {
                     }
 
                     <div className={`${isDarkTheme ? 'text-[#BFC6D2]' : 'text-gray-700'}`}>
-                        <form action="/" onSubmit={handleForm} className="flex-col">
+                        <form action="/" onSubmit={handleForm} className="flex-col font-inter">
                             <div>
-                                <label className="text-sm font-inter" htmlFor="category">
+                                <label className="text-sm" htmlFor="category">
                                     {t("Category")}*
                                 </label>
                                 <select
@@ -165,7 +165,7 @@ function CreateReviewPage(props) {
                                 </select>
                             </div>
                             <div className="mt-5">
-                                <label className="text-sm font-inter" htmlFor="title">
+                                <label className="text-sm" htmlFor="title">
                                     {t("Title")}*
                                 </label>
                                 <input
@@ -179,7 +179,7 @@ function CreateReviewPage(props) {
                                 />
                             </div>
                             <div className="mt-5">
-                                <label className="text-sm font-inter" htmlFor="subject">
+                                <label className="text-sm" htmlFor="subject">
                                     {t("Subject")}*
                                 </label>
                                 <input
@@ -201,7 +201,7 @@ function CreateReviewPage(props) {
                             }
 
                             <div className="mt-5">
-                                <label className="text-sm font-inter" htmlFor="tag">
+                                <label className="text-sm" htmlFor="tag">
                                     {t("Enter Tags (max 20)")}
                                 </label>
                                 <div className="flex items-center justify-between gap-4 relative">
@@ -233,7 +233,7 @@ function CreateReviewPage(props) {
                                         disabled={!tag}
                                         type="button"
                                         onClick={handleAddTag}
-                                        className="flex justify-center items-center mt-2 text-white bg-customPurple font-inter text-base px-[18px] py-2.5 rounded-lg disabled:opacity-50"
+                                        className="flex justify-center items-center mt-2 text-white bg-customPurple text-base px-[18px] py-2.5 rounded-lg disabled:opacity-50"
                                     >
                                         <svg className="mr-2" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g id="Plus">
@@ -247,7 +247,7 @@ function CreateReviewPage(props) {
                                 <div className="flex flex-wrap items-center mt-5">
                                     {tags.map(el => (
                                         <span
-                                            className="flex justify-start items-center text-[#667085] text-sm font-inter mr-3 py-0.5 pl-2.5 pr-1.5 bg-[#667085] bg-opacity-10 rounded-lg"
+                                            className="flex justify-start items-center text-[#667085] text-sm mr-3 py-0.5 pl-2.5 pr-1.5 bg-[#667085] bg-opacity-10 rounded-lg"
                                             key={el}
                                         >{el}
                                             <svg
@@ -263,7 +263,7 @@ function CreateReviewPage(props) {
 
                             </div>
                             <div className="mt-5">
-                                <label className="text-sm font-inter" htmlFor="description">
+                                <label className="text-sm" htmlFor="description">
                                     {t("Review text")}*
                                 </label>
                                 {
@@ -274,7 +274,7 @@ function CreateReviewPage(props) {
 
                             </div>
                             <div className="flex flex-col items-start mt-5">
-                                <label className="mb-2 text-gray-700 text-sm font-inter" htmlFor="numberSlider">
+                                <label className="mb-2 text-gray-700 text-sm" htmlFor="numberSlider">
                                     {t("Set Mark")}*
                                 </label>
                                 <input
@@ -287,7 +287,7 @@ function CreateReviewPage(props) {
                                     value={mark}
                                     onChange={(e) => setMark(e.target.value)}
                                 />
-                                <p className="text-gray-700 text-base font-inter">{t("Your mark")}: {mark}</p>
+                                <p className="text-gray-700 text-base">{t("Your mark")}: {mark}</p>
                             </div>
                             <div className="flex justify-center pb-[96px]">
                                 <button
