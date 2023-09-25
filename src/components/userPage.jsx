@@ -25,7 +25,7 @@ function UserPage(props) {
     }, [reviews]);
 
     const [deleteReview] = useDeleteReviewByIdMutation();
-    const handleDeleteReview = (reviewId) => () => {
+    const handleDeleteReview = (reviewId) => {
         deleteReview(reviewId)
             .unwrap()
             .then((res) => {

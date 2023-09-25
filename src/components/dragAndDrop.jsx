@@ -41,7 +41,7 @@ const ImageUploader = ({handleImageDrop}) => {
 
     return (
         <div
-            className="flex items-center justify-center h-[280px] border border-gray-300 p-4 rounded-md text-center cursor-pointer"
+            className="flex items-center justify-center h-[280px] border border-gray-300 p-4 rounded-md text-center"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
         >
@@ -55,7 +55,7 @@ const ImageUploader = ({handleImageDrop}) => {
                     <p className="mt-2">{selectedFile.name}</p>
                 </div>
             ) : (
-                <div className="flex flex-col justify-center items-center">
+                <label htmlFor="browseFile" className="flex flex-col justify-center items-center cursor-pointer">
                     <div>
                         <svg width="86" height="64" viewBox="0 0 86 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Group 1">
@@ -67,9 +67,10 @@ const ImageUploader = ({handleImageDrop}) => {
                     </div>
                     <p className="mt-8 text-base font-inter text-[#344054]">{t("Drag and drop an image, or Browse")}</p>
                     <p className="mt-2 text-sm font-inter text-gray-500">{t("Minimum 960px width recommended. Max 10MB")}</p>
-                </div>
+                </label>
             )}
             <input
+                id="browseFile"
                 type="file"
                 accept="image/*"
                 className="hidden"
