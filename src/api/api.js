@@ -124,6 +124,16 @@ const api = createApi({
                 }
             }
         }),
+
+        searchReview: builder.mutation({
+            query: (text) => {
+                return {
+                    url: `review/search`,
+                    method: 'POST',
+                    body: {text: text},
+                }
+            }
+        }),
     }),
 });
 
@@ -141,5 +151,6 @@ export const {
     useGetUserReviewsQuery,
     useDeleteReviewByIdMutation,
     useEditReviewByIdMutation,
+    useSearchReviewMutation,
 } = api;
 export const apiSlice = api;

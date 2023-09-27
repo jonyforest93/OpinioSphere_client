@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Post from "./post";
 import FilterToolbar from "./filterToolbar";
-import { useGetAllPostsMutation } from "../api/api";
+import { useGetAllPostsMutation, useSearchReviewMutation } from "../api/api";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../ThemeContext";
 
-const PostList = () => {
+const PostList = ({searchText}) => {
     const { isDarkTheme } = useTheme();
     const { t } = useTranslation();
     const [posts, setPosts] = useState([]);
+    const [foundPost, setFoundPost] = useState([]);
     const [category, setCategory] = useState("All");
     const [orderBy, setOrderBy] = useState();
     const [page, setPage] = useState(0);
@@ -17,6 +18,8 @@ const PostList = () => {
     const limit = 8;
 
     const [getAllPosts] = useGetAllPostsMutation();
+    const [getSearchReview] = useSearchReviewMutation()
+
 
     useEffect(() => {
         setHasMore(true)
@@ -54,6 +57,16 @@ const PostList = () => {
             });
     }, [page]);
 
+    useEffect(() => {
+        if (searchText) {
+            getSearchReview(searchText).unwrap().then((res) => {
+                setFoundPost(res);
+            })
+        } else {
+            setFoundPost([]);
+        }
+    }, [searchText]);
+
     const handlePagePlus = () => {
         setPage(page + 1);
     };
@@ -70,9 +83,17 @@ const PostList = () => {
                     loader={<h4>{t("loading...")}</h4>}
                 >
                     <div className=" md:grid grid-cols-2 gap-x-8 gap-y-12 my-10">
-                        {posts.map((post, index) => (
-                            <Post {...post} key={index} />
-                        ))}
+                        {searchText.length > 0 ?
+                            (
+                            foundPost.length > 0 ?
+                                (
+                                    foundPost.map((post, index) => <Post {...post} key={index} />
+                                )) : (
+                                    <div>No found reviews</div>
+                                )
+                        ) : (
+                            posts.map((post, index) => <Post {...post} key={index} />)
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>

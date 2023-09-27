@@ -13,13 +13,12 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../ThemeContext";
 
 
-const Head = () => {
+const Head = ({onSearch}) => {
     const { isDarkTheme } = useTheme();
     const { t } = useTranslation();
     const { pathname } = useLocation();
     const [isAuth, setIsAuth] = useState(false);
     const [isReg, setIsReg] = useState(false);
-    const [search, setSearch] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate()
 
@@ -30,9 +29,11 @@ const Head = () => {
             document.body.style.overflow = 'auto'
         }
     }, [isMenuOpen]);
+
     const isAuthorized = () => {
         return !!TokenService.getToken()
     }
+
     const handleButtonAuth = (event) => {
         setIsAuth(true)
     };
@@ -140,7 +141,7 @@ const Head = () => {
                         <div className={`${isDarkTheme ? 'bg-backgroundDark' : 'bg-white'} absolute top-[72px] left-0 w-full h-screen`}>
                             <div className={`px-6 pt-10 flex flex-col justify-start items-center`}>
                                 <input type="text"
-                                       onChange={(e) => setSearch(e.target.value)}
+                                       onChange={(e) => onSearch(e.target.value)}
                                        className={`${isDarkTheme ? 'bg-backgroundDark text-textDark border border-borderDark' : 'bg-white text-gray-900 border border-borderLight'} w-full h-12  rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none`}
                                        placeholder="Search"
                                 />
@@ -264,7 +265,7 @@ const Head = () => {
                         </svg>
                         <p className="cursor-pointer text-xl font-inter mr-10" onClick={() => {navigate('/')}}>OpinioSphere</p>
                         <input type="text"
-                               onChange={(e) => setSearch(e.target.value)}
+                               onChange={(e) => onSearch(e.target.value)}
                                className={`sm: hidden md:hidden lg:block ${isDarkTheme ? 'bg-backgroundDark text-textDark border border-borderDark' : 'bg-white text-gray-900 border border-borderLight'} w-50 h-12  rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none`}
                                placeholder="Search"
                         />
