@@ -24,6 +24,7 @@ const Head = ({onSearch}) => {
 
     useEffect(() => {
         if (isMenuOpen) {
+            onSearch('')
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflow = 'auto'
@@ -266,7 +267,7 @@ const Head = ({onSearch}) => {
                         <p className="cursor-pointer text-xl font-inter mr-10" onClick={() => {navigate('/')}}>OpinioSphere</p>
                         <input type="text"
                                onChange={(e) => onSearch(e.target.value)}
-                               className={`sm: hidden md:hidden lg:block ${isDarkTheme ? 'bg-backgroundDark text-textDark border border-borderDark' : 'bg-white text-gray-900 border border-borderLight'} w-50 h-12  rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none`}
+                               className={`sm: hidden lg:block lg:${(pathname !== '/') ? 'hidden' : 'block'} ${isDarkTheme ? 'bg-backgroundDark text-textDark border border-borderDark' : 'bg-white text-gray-900 border border-borderLight'} w-50 h-12  rounded-lg px-6 text-gray-500 font-inter text-base focus:outline-none`}
                                placeholder="Search"
                         />
                     </div>

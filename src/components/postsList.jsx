@@ -5,6 +5,7 @@ import { useGetAllPostsMutation, useSearchReviewMutation } from "../api/api";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../ThemeContext";
+import Loader from "./loader";
 
 const PostList = ({searchText}) => {
     const { isDarkTheme } = useTheme();
@@ -80,9 +81,9 @@ const PostList = ({searchText}) => {
                     dataLength={posts.length}
                     next={handlePagePlus}
                     hasMore={hasMore}
-                    loader={<h4>{t("loading...")}</h4>}
+                    loader={<Loader />}
                 >
-                    <div className=" md:grid grid-cols-2 gap-x-8 gap-y-12 my-10">
+                    <div className="overflow-hidden md:grid grid-cols-2 gap-x-8 gap-y-12 my-10">
                         {searchText.length > 0 ?
                             (
                             foundPost.length > 0 ?
