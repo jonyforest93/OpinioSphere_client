@@ -39,5 +39,14 @@
   "Reviews list": "Список обзоров",
   "Delete review": "Удалить обзор",
   "Create review": "Создать обзор",
-  "Loading": "Загрузка данных"
+  "Loading": "Загрузка данных",
+  "Create an account": "Создайте аккаунт",
+  "Name": "Имя",
+  "Password": "Пароль",
+  "Enter your name": "Введите ваше имя",
+  "Enter your email": "Введите ваш Email",
+  "Create a password": "Создайте пароль",
+  "Log in to your account": "Войдите в свой аккаунт",
+  "Welcome back! Please enter your details": "С возвращением! Пожалуйста введите данные",
+  "Must be at least 8 characters": "Не менее 8 символов"
 }

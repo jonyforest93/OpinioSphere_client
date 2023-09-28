@@ -3,8 +3,12 @@ import {useState} from "react";
 import {useAuthUserMutation} from "../api/api";
 import TokenService from "../services/token.service";
 import ErrorMessage from "./errorMessage";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../ThemeContext";
 
 const ModalAuth = ({onClick}) => {
+    const { t } = useTranslation();
+    const { isDarkTheme } = useTheme();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null);
@@ -36,52 +40,56 @@ const ModalAuth = ({onClick}) => {
 
 
     return (
-        <>
-            <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} fixed inset-0 top-[72px] right-0 bottom-0 left-0 w-full h-screen`}>
+            <div className="relative container mt-24 mx-auto flex flex-col items-center font-inter">
+                <button
+                    className="text-gray-500 hover:text-gray-700 absolute top-0 right-0 m-2"
+                    onClick={handleCloseModal}
+                    type="button"
+                >
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="x">
+                            <path id="Icon" d="M18 6L6 18M6 6L18 18" stroke="#344054" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </g>
+                    </svg>
+                </button>
                 <ErrorMessage message={error} onClose={() => setError(null)} />
-                <div className="fixed inset-0 bg-black opacity-50"></div>
-                <form className="relative bg-white p-4 rounded shadow-md w-96" action="/" onSubmit={handleForm}>
-                    <button
-                        className="text-gray-500 hover:text-gray-700 absolute top-0 right-0 m-2"
-                        onClick={handleCloseModal}
-                        type="button"
-                    >
-                        Закрыть
-                    </button>
-                    <div className="mb-4 mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                            Email
+                <h1 className={`text-3xl font-semibold mt-6`}>{t('Log in to your account')}</h1>
+                <p className={`text-base text-gray-500 mt-3`}>{t("Welcome back! Please enter your details")}</p>
+                <form className={`bg-transparent font-inter mt-8 w-[360px]`} action="/" onSubmit={handleForm}>
+                    <div className="mb-5 mt-8">
+                        <label className={`${isDarkTheme ? 'text-textDark' : 'text-gray-700'} block text-base mb-1.5`} htmlFor="email">
+                            Email*
                         </label>
                         <input
-                            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="email"
-                            type="email"
+                            className={`${isDarkTheme ? 'text-gray-300' : 'text-gray-700'} bg-transparent border rounded w-full py-2.5 px-3.5 text-base leading-tight focus:outline-none focus:shadow-outline`}                            type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder={t("Enter your email")}
                             required
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            Password
+                        <label className={`${isDarkTheme ? 'text-textDark' : 'text-gray-700'} block text-base mb-1.5`} htmlFor="password">
+                            {t("Password")}*
                         </label>
                         <input
-                            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="password"
+                            className={`${isDarkTheme ? 'text-gray-300' : 'text-gray-700'} bg-transparent border rounded w-full py-2.5 px-3.5 text-base leading-tight focus:outline-none focus:shadow-outline`}                            id="password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder={t("Create a password")}
                             required
                         />
                     </div>
-                    <div className="text-center">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Auth
+                    <div className="text-center mt-6">
+                        <button className="w-full text-white bg-customPurple font-inter text-base px-[18px] py-2.5 rounded-lg" type="submit">
+                            {t("Sign In")}
                         </button>
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 

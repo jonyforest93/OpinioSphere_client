@@ -23,22 +23,24 @@ const Head = ({onSearch}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (isMenuOpen) {
+        if (isMenuOpen || isAuth || isReg) {
             onSearch('')
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflow = 'auto'
         }
-    }, [isMenuOpen]);
+    }, [isMenuOpen, isAuth, isReg]);
 
     const isAuthorized = () => {
         return !!TokenService.getToken()
     }
 
     const handleButtonAuth = (event) => {
+        setIsReg(false);
         setIsAuth(true)
     };
     const handleButtonRegistration = (event) => {
+        setIsAuth(false);
         setIsReg(true)
     }
     const handleCloseModal = () => {

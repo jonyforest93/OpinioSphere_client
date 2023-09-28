@@ -39,5 +39,15 @@
   "Reviews list": "Reviews list",
   "Delete review": "Delete review",
   "Create review": "Create review",
-  "Loading": "Loading"
+  "Loading": "Loading",
+  "Create an account": "Create an account",
+  "Name": "Name",
+  "Password": "Password",
+  "Enter your name": "Enter your name",
+  "Enter your email": "Enter your email",
+  "Create a password": "Create a password",
+  "Register now": "Register now",
+  "Log in to your account": "Log in to your account",
+  "Welcome back! Please enter your details": "Welcome back! Please enter your details",
+  "Must be at least 8 characters": "Must be at least 8 characters"
 }
