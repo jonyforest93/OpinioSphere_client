@@ -40,10 +40,10 @@ const ModalAuth = ({onClick}) => {
 
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} fixed inset-0 top-[72px] right-0 bottom-0 left-0 w-full h-screen`}>
-            <div className="relative container mt-24 mx-auto flex flex-col items-center font-inter">
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} fixed inset-0 top-0 right-0 bottom-0 left-0 w-full h-screen md:top-[72px]`}>
+            <div className="relative container mt-16 mx-auto flex flex-col items-center font-inter md:mt-24">
                 <button
-                    className="text-gray-500 hover:text-gray-700 absolute top-0 right-0 m-2"
+                    className="text-gray-500 hover:text-gray-700 absolute top-[-50px] right-0 m-2"
                     onClick={handleCloseModal}
                     type="button"
                 >
@@ -54,7 +54,7 @@ const ModalAuth = ({onClick}) => {
                     </svg>
                 </button>
                 <ErrorMessage message={error} onClose={() => setError(null)} />
-                <h1 className={`text-3xl font-semibold mt-6`}>{t('Log in to your account')}</h1>
+                <h1 className={`text-xl font-semibold mt-6 md:text-3xl`}>{t('Log in to your account')}</h1>
                 <p className={`text-base text-gray-500 mt-3`}>{t("Welcome back! Please enter your details")}</p>
                 <form className={`bg-transparent font-inter mt-8 w-[360px]`} action="/" onSubmit={handleForm}>
                     <div className="mb-5 mt-8">
@@ -78,7 +78,7 @@ const ModalAuth = ({onClick}) => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder={t("Create a password")}
+                            placeholder={t("Enter your password")}
                             required
                         />
                     </div>

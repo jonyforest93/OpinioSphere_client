@@ -45,10 +45,10 @@ const ModalReg = ({onClick}) => {
 
 
     return (
-        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} fixed inset-0 top-[72px] right-0 bottom-0 left-0 w-full h-screen`}>
-            <div className="relative container mt-24 mx-auto flex flex-col items-center font-inter">
+        <div className={`${isDarkTheme ? 'bg-backgroundDark text-textDark' : 'bg-white text-gray-900'} fixed inset-0 top-0 right-0 bottom-0 left-0 w-full h-screen md:top-[72px]`}>
+            <div className="relative container mt-16 mx-auto flex flex-col items-center font-inter md:mt-24">
                 <button
-                    className="text-gray-500 hover:text-gray-700 absolute top-0 right-0 m-2"
+                    className="text-gray-500 hover:text-gray-700 absolute top-[-50px] right-0 m-2"
                     onClick={handleCloseModal}
                     type="button"
                 >
@@ -59,7 +59,7 @@ const ModalReg = ({onClick}) => {
                     </svg>
                 </button>
                 <ErrorMessage message={error} onClose={() => setError(null)} />
-                <h1 className={`text-3xl font-semibold mt-6`}>{t('Create an account')}</h1>
+                <h1 className={`text-xl font-semibold mt-6 md:text-3xl`}>{t('Create an account')}</h1>
                 <form className={`bg-transparent font-inter mt-8 w-[360px]`} action="/" onSubmit={handleForm}>
                     <div className="mb-4 mt-4">
                         <label className={`${isDarkTheme ? 'text-textDark' : 'text-gray-700'} block text-base mb-1.5`} htmlFor="email">
